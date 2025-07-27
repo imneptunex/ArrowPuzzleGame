@@ -67,36 +67,27 @@ public class InputHandler : MonoBehaviour
         currentDirection = null;
         currentSteps = 1;
         UpdateCommandDisplay(); // If you’re updating on-screen UI
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
     }
 
     private void UpdateCommandDisplay()
     {
         if (commandDisplayText == null) return;
 
-        string display = "";
+        if (commandList.Count == 0)
+        {
 
-        // Show completed commands
+            return;
+        }
+
+        string display = "";
         for (int i = 0; i < commandList.Count; i++)
         {
             var cmd = commandList[i];
             string arrow = DirectionToArrow(cmd.direction);
-            display += $"{cmd.steps}{arrow}     ";
-        }
-
-        // Show partial (incomplete) command input
-        if (currentDirection.HasValue && currentSteps > 0)
-        {
-            string arrow = DirectionToArrow(currentDirection.Value);
-            display += $"{currentSteps}{arrow}     ";
-        }
-        else if (currentDirection.HasValue)
-        {
-            string arrow = DirectionToArrow(currentDirection.Value);
-            display += $"?{arrow}     ";
-        }
-        else if (currentSteps > 1) // only show steps if they typed step but no direction
-        {
-            display += $"{currentSteps}?     ";
+            display += $"{cmd.steps}{arrow}   ";
         }
 
         commandDisplayText.text = display;
@@ -110,8 +101,8 @@ public class InputHandler : MonoBehaviour
 
         if (dir == Vector2Int.right) return sizeTagStart + "→" + sizeTagEnd;
         if (dir == Vector2Int.left) return sizeTagStart + "←" + sizeTagEnd;
-        if (dir == Vector2Int.up) return sizeTagStart + "↑" + sizeTagEnd;
-        if (dir == Vector2Int.down) return sizeTagStart + "↓" + sizeTagEnd;
+        if (dir == Vector2Int.up) return sizeTagStart + "↑  " + sizeTagEnd;
+        if (dir == Vector2Int.down) return sizeTagStart + "↓  " + sizeTagEnd;
 
         return "?";
     }
@@ -129,9 +120,7 @@ public class InputHandler : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         int nextSceneIndex = currentScene.buildIndex + 1;
 
-        // Check if next scene index is valid, else wrap to first scene
-        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
-            nextSceneIndex = 0;
+        
 
         SceneManager.LoadScene(nextSceneIndex);
     }

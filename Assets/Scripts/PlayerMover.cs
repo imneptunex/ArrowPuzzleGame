@@ -17,9 +17,29 @@ public class PlayerMover : MonoBehaviour
 
     public GameObject SuccesPanel;
 
+    public GameObject markerPrefab; // Assign your VisitedMarker prefab in Inspector
+    private HashSet<Vector2Int> visitedTiles = new HashSet<Vector2Int>();
+
+    private HashSet<Vector2Int> allTilePositions = new HashSet<Vector2Int>();
+
+    [SerializeField] InputHandler inputHandler;
+
+    private bool allTilesVisited;
+    
     private void Start()
     {
         SuccesPanel.SetActive(false);
+
+        allTilesVisited = false;
+
+        GameObject[] allTiles = GameObject.FindGameObjectsWithTag("Tile");
+
+        foreach (GameObject tile in allTiles)
+        {
+            Vector2 pos = tile.transform.position;
+            Vector2Int gridPos = new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+            allTilePositions.Add(gridPos);
+        }
 
         if (startPosition != null)
         {
@@ -67,6 +87,12 @@ public class PlayerMover : MonoBehaviour
                 yield return MoveTo(worldPos);
             }
         }
+        if (visitedTiles.SetEquals(allTilePositions))
+        {
+            
+            allTilesVisited = true;
+            // You could also trigger a win panel here, if not using the circle goal
+        }
 
         isMoving = false;
 
@@ -75,11 +101,12 @@ public class PlayerMover : MonoBehaviour
 
         Collider2D hit = Physics2D.OverlapPoint(transform.position, goalLayer);
         bool touchingGoal = (hit != null);
-
-        if (!touchingGoal)
+        if (touchingGoal && allTilesVisited)
         {
-            
-
+            SuccesPanel.SetActive(true);
+        }
+        else
+        {
             // Reset position
             if (startPosition != null)
             {
@@ -96,10 +123,15 @@ public class PlayerMover : MonoBehaviour
             {
                 inputHandler.ResetCommands();
             }
-        }else
-        {
-            SuccesPanel.SetActive(true);
+
+            inputHandler.LoadSameScene();
+
+
         }
+
+
+
+
     }
 
         private IEnumerator MoveTo(Vector3 targetPos)
@@ -128,4 +160,35 @@ public class PlayerMover : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Tile"))
+        {
+            
+            Vector2 tilePos = collision.transform.position;
+            Vector2Int tileGridPos = new Vector2Int(Mathf.RoundToInt(tilePos.x), Mathf.RoundToInt(tilePos.y));
+
+            if (visitedTiles.Contains(tileGridPos))
+            {
+                
+                inputHandler.LoadSameScene();
+
+            }
+            else
+            {
+                visitedTiles.Add(tileGridPos);
+                Instantiate(markerPrefab, tilePos, Quaternion.identity);
+            }
+        }
+        else if(collision.CompareTag("BoundaryZone"))
+        {
+            Debug.Log("Player exited boundary!");
+            inputHandler.LoadSameScene();
+        }
+
+
+    }
+
+
 }
