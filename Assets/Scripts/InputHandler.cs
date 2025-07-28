@@ -11,6 +11,10 @@ public class InputHandler : MonoBehaviour
     public TextMeshProUGUI commandDisplayText;
     private int currentSteps = 1; // default to 1
 
+    private void Start()
+    {
+        GameManager.Instance.SaveCurrentScene();
+    }
     public void AddDirection(string dir)
     {
         dir = dir.Trim().ToLower();
@@ -123,6 +127,11 @@ public class InputHandler : MonoBehaviour
         
 
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    public void ReturnHome()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

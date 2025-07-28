@@ -9,6 +9,8 @@ public class ButtonsController : MonoBehaviour
 
     [SerializeField] private GameObject mainMenu;
 
+    [SerializeField] private GameObject[] optionMenuButtons;
+
 
     public void OptionsMenu()
     {
@@ -18,6 +20,15 @@ public class ButtonsController : MonoBehaviour
         creditsMenu.SetActive(false);
         levelSelectMenu.SetActive(false);
         mainMenu.SetActive(false);
+
+        foreach (GameObject optionMenuButton in optionMenuButtons)
+        {
+            optionMenuButton.SetActive(true);
+        }
+
+        
+        
+        
     }
 
     public void CreditsMenu()
@@ -42,12 +53,9 @@ public class ButtonsController : MonoBehaviour
 
     public void ContinueMenu()
     {
-        optionsMenu.SetActive(false);
+       
 
-        continueMenu.SetActive(true);
-        creditsMenu.SetActive(false);
-        levelSelectMenu.SetActive(false);
-        mainMenu.SetActive(false);
+        GameManager.Instance.LoadLastSceneOrDefault();
     }
 
     public void ReturnMainMenu()
@@ -58,6 +66,11 @@ public class ButtonsController : MonoBehaviour
         creditsMenu.SetActive(false);
         levelSelectMenu.SetActive(false);
         mainMenu.SetActive(true);
+
+        foreach (GameObject optionMenuButton in optionMenuButtons)
+        {
+            optionMenuButton.SetActive(false);
+        }
     }
 
 }

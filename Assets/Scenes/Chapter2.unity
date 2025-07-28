@@ -3677,8 +3677,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 218, y: -271.5}
-  m_SizeDelta: {x: 116.2253, y: 111.4241}
+  m_AnchoredPosition: {x: 225.3123, y: -268.41}
+  m_SizeDelta: {x: 112.5143, y: 105.0623}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &149658444929285423
 MonoBehaviour:
@@ -3756,7 +3756,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1869715980}
         m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: ResetCommands
+        m_MethodName: ReturnHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1475773747, guid: bc7bf0b8878744676aa082c88623af96, type: 3}
+  m_Sprite: {fileID: -6092046209947563752, guid: 590c2119f2fa746ea8cba06f05c6fc27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4683,7 +4683,7 @@ Transform:
   m_GameObject: {fileID: 6232874534474037805}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.01, y: 0.871, z: 0}
+  m_LocalPosition: {x: -1.05, y: 0.871, z: 0}
   m_LocalScale: {x: 0.61, y: 0.61, z: 0.61}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4980,7 +4980,7 @@ GameObject:
   - component: {fileID: 980939791130812055}
   - component: {fileID: 288280104222110133}
   m_Layer: 5
-  m_Name: Restart
+  m_Name: ReturnHome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

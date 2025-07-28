@@ -3756,7 +3756,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1869715980}
         m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: ResetCommands
+        m_MethodName: ReturnHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1475773747, guid: bc7bf0b8878744676aa082c88623af96, type: 3}
+  m_Sprite: {fileID: -6092046209947563752, guid: 590c2119f2fa746ea8cba06f05c6fc27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
